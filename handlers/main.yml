@@ -1,0 +1,10 @@
+---
+# handlers file for lb
+- name: lb start
+  service:
+          name: "haproxy"
+          state: restarted
+  register: d
+- debug:
+        var: d
+

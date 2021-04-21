@@ -1,0 +1,27 @@
+---
+# tasks file for lb
+- name: Install haproxy software
+  package:
+          name: "haproxy"
+          state: present
+  register: a
+- debug:
+        var: a
+
+- name: Copy local haproxy cfg file to lb haproxy
+  copy:
+          dest: "/etc/haproxy/haproxy.cfg"
+          src: "haproxy.cfg"
+  register: b
+  notify: lb start
+- debug:
+        var: b
+
+- name: start service
+  service:
+          name: haproxy
+          state: started
+  register: c
+- debug:
+        var: c
+
